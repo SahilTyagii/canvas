@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-
 import {
   ReactFlow,
   MiniMap,
@@ -9,9 +8,9 @@ import {
   useEdgesState,
   addEdge,
 } from '@xyflow/react';
- 
 import '@xyflow/react/dist/style.css';
 import Card from './components/card';
+import CustomEdge from './components/CustomEdge'; // Update path as necessary
 
 const initialNodes = [
   { id: '1', position: { x: 0, y: 0 }, type: 'card' },
@@ -21,14 +20,18 @@ const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
 const nodeTypes = {
   card: Card
-}
+};
+
+const edgeTypes = {
+  custom: CustomEdge
+};
 
 const App = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) => setEdges((eds) => addEdge({ ...params, type: 'custom', markerEndId: 'arrow' }, eds)),
     [setEdges],
   );
 
@@ -41,13 +44,14 @@ const App = () => {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
       >
         <Controls />
-        <MiniMap zoomable pannable/>
+        <MiniMap zoomable pannable />
         <Background variant="dots" gap={12} size={1} />
       </ReactFlow>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
