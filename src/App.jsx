@@ -9,7 +9,7 @@ import {
   addEdge,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import Card from './components/card';
+import Card from './components/Card';
 import CustomEdge from './components/CustomEdge';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import InsertLinkRoundedIcon from '@mui/icons-material/InsertLinkRounded';
